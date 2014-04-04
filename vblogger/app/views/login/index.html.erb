@@ -1,0 +1,20 @@
+<h1>Login</h1>
+
+<%= form_for @blogger, url: login_validate_path , method: :post do |f| %>
+	<p>
+		<%= f.label :username, "Username" %>
+	</p>
+	<p>
+		<%= f.text_field :username %>
+	</p>
+	<p>
+		<%= f.label :password, "Password" %>
+	</p>
+	<p>
+		<%= f.password_field :password %>
+	</p>
+	<p>
+		<%= f.submit "Login" %>
+	</p>
+	
+<% end %>
