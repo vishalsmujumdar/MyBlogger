@@ -6,16 +6,17 @@ class PostsController < ApplicationController
 		@post = Post.new
 	end
 	def create
-		#@post = Post.new(post_params)
 		@loggedblogger = session[:loggedblogger]
 		@parameters = {:bloggerid => @loggedblogger[:bloggerid]}
 		@parameters.merge!(post_params)
 
-		#if @post.save
-		#	redirect_to posts_path, :notice => "Post saved successfully !"
-		#else
-		#	render "new"
-		#end
+		@post = Post.new(@parameters)
+		
+		if @post.save
+			redirect_to posts_path, :notice => "Post saved successfully !"
+		else
+			render "new"
+		end
 	end
 	def show
 		@post = Post.find(params[:id])

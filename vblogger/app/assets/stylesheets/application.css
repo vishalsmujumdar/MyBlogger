@@ -11,3 +11,11 @@
  *= require_self
  *= require_tree .
  */
+@font-face {
+	font-family: ubuntu_font;
+	src: url('assets/fonts/Ubuntu_R.ttf');
+}
+
+body {
+	font-family: ubuntu_font;
+}

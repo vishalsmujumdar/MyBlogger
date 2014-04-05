@@ -13,13 +13,20 @@
 <body>
 
 <header>
-	<%= link_to "Home", posts_path %>
-	<% if session[:loggedblogger] %>
-		<% loggedblogger = session[:loggedblogger] %>
-		<%= loggedblogger[:name] %>		
-		<%= form_for Blogger.new, url: application_clearsession_path do |logoutform| %>
-			<%= logoutform.submit "Logout" %>
-		<% end %>
+	
+	<% if !request.fullpath.to_s.include? "login/index" %>
+		<% if !session[:loggedblogger] %>
+			<script type="text/javascript">
+	    		window.location.href="/login/index"
+	  		</script>			
+		<% elsif session[:loggedblogger] %>	
+			<%= link_to "Home", posts_path %>
+			<% loggedblogger = session[:loggedblogger] %>
+			<%= loggedblogger[:name] %>		
+			<%= form_for Blogger.new, url: application_clearsession_path do |logoutform| %>
+				<%= logoutform.submit "Logout" %>
+			<% end %>
+	  	<% end %>
 	<% end %>
 </header>
 

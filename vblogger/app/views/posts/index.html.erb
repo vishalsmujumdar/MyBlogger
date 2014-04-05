@@ -10,6 +10,10 @@
 	<p>
 		<%= post.content %>
 	</p>
+	<% @blogger = Blogger.find_by bloggerid: post.bloggerid %>
+	<p>
+		Author: <%= @blogger.name %>
+	</p>
 	<p>
 		<%= link_to "Edit", edit_post_path(post) %> |
 		<%= link_to "Delete", post, :confirm => "Are you sure you want to delete this post ?", :method => :delete %>
