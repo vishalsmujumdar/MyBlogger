@@ -4,7 +4,7 @@
 
 <h1>Edit Post</h1>
 
-<%= form_for @post, url: "/blogs/#{@blog.id}/posts/#{@post}", method: :put do |f| %>
+<%= form_for @post, url: "/blogs/#{@blog.id}/posts/#{@post[:id]}", method: :patch do |f| %>
 	<p>
 		<%= f.label :title %>
 	</p>

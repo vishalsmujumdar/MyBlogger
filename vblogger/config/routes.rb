@@ -9,7 +9,9 @@ Vblogger::Application.routes.draw do
   post "application/clearsession"
   
   resources :blogs do
-    resources :posts
+    resources :posts do
+      resources :comments
+    end
   end
 
   root 'login#index'

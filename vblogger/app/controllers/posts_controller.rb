@@ -11,7 +11,10 @@ class PostsController < ApplicationController
 		@loggedblogger = session[:loggedblogger]
 		@blog = Blog.find(params[:blog_id])
 		
-		@parameters = {:blogid => @blog[:blogid] , :bloggerid => @loggedblogger[:bloggerid]}
+		@latestpost = Post.order("postid DESC").first
+    	@latestpostid = getLatestPostID(@latestpost ? @latestpost[:postid] : "empty")
+    
+		@parameters = {:postid => @latestpostid, :blogid => @blog[:blogid] , :bloggerid => @loggedblogger[:bloggerid]}
 		@parameters.merge!(post_params)
 		@post = Post.new(@parameters)
 		
@@ -51,6 +54,22 @@ class PostsController < ApplicationController
 		def post_params
     		params.require(:post).permit(:title, :content)
   		end
+	
+		def getLatestPostID(id)
+		  if id == "empty"
+		    newid = "POST" + Time.now.strftime("%Y%m%d") + "0001"
+	      else
+			latestiddate = id[4,8]
+	      	today = Time.now.strftime("%Y%m%d")
 
+		    #if latestiddate = today then increment id by 1
+		    if latestiddate == today
+		      newid = "POST" + (id[4,12].to_i + 1).to_s
+		    #else create new id with today's date
+		    else
+		       newid = "POST" + Time.now.strftime("%Y%m%d") + "0001"
+		    end
+	      end		
+	    end
 
 end

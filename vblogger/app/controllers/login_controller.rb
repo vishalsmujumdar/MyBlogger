@@ -23,7 +23,7 @@ class LoginController < ApplicationController
 	end
 	def signupprocess
 		@latestblogger = Blogger.order("bloggerid DESC").first
-		@latestbloggerid = getLatestBloggerID(@latestblogger[:bloggerid])
+		@latestbloggerid = getLatestBloggerID(@latestblogger ? @latestblogger[:bloggerid] : "empty")
 		@parameters = {:bloggerid => @latestbloggerid}
 		@parameters.merge!(post_params)
 
@@ -42,18 +42,21 @@ class LoginController < ApplicationController
   		end
 
 		def getLatestBloggerID(id)
-			latestiddate = id[4,8]
-			today = Time.now.strftime("%Y%m%d")
-
-			#if latestiddate = today then increment id by 1
-			if latestiddate == today
-				newid = "BLGR" + (id[4,12].to_i + 1).to_s
-			#else create new id with today's date
+			if id == "empty"
+			   	newid = "BLGR" + Time.now.strftime("%Y%m%d") + "0001"
 			else
-			   newid = "BLGR" + Time.now.strftime("%Y%m%d") + "0001"
+				latestiddate = id[4,8]
+				today = Time.now.strftime("%Y%m%d")
+
+				#if latestiddate = today then increment id by 1
+				if latestiddate == today
+					newid = "BLGR" + (id[4,12].to_i + 1).to_s
+				#else create new id with today's date
+				else
+				   newid = "BLGR" + Time.now.strftime("%Y%m%d") + "0001"
+				end
 			end
 		end
-
 end
 
 #s="BLGR201404050005"
