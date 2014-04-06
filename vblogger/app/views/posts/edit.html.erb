@@ -1,6 +1,10 @@
+<h1>
+	<%= link_to @blog.blogtitle, blog_path(@blog) %>
+</h1>
+
 <h1>Edit Post</h1>
 
-<%= form_for @post do |f| %>
+<%= form_for @post, url: "/blogs/#{@blog.id}/posts/#{@post}", method: :put do |f| %>
 	<p>
 		<%= f.label :title %>
 	</p>

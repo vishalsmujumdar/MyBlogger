@@ -1,9 +1,13 @@
-<h1>All Posts</h1>
+<h1>
+	<%= link_to @blog.blogtitle, blog_path(@blog) %>
+</h1>
+
+<h2>All Posts</h2>
 
 <% @posts.each do |post| %>
 	<p>
 		<h2>
-			<%= link_to post.title, post %>
+			<%= link_to post.title, "/blogs/#{@blog.id}/posts/#{@post}" %>
 		</h2>
 		<%= post.created_at %>
 	</p>
@@ -15,10 +19,10 @@
 		Author: <%= @blogger.name %>
 	</p>
 	<p>
-		<%= link_to "Edit", edit_post_path(post) %> |
-		<%= link_to "Delete", post, :confirm => "Are you sure you want to delete this post ?", :method => :delete %>
+		<%= link_to "Edit", "/blogs/#{@blog.id}/posts/#{post.id}/edit" %> |
+		<%= link_to "Delete", "/blogs/#{@blog.id}/posts/#{post.id}", :confirm => "Are you sure you want to delete this post ?", :method => :delete %>
 	</p>
 	<hr/>
 <% end %>
 
-<%= link_to "Add new post", new_post_path %>
+<%= link_to "Add new post", new_blog_post_path(@blog) %>

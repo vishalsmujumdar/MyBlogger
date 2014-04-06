@@ -3,13 +3,13 @@
 one:
   blogid: MyString
   bloggerid: MyString
-  title: MyString
-  content: MyText
-  blog_id: 
+  blogtitle: MyString
+  blogdescription: MyText
+  numberofposts: 1
 
 two:
   blogid: MyString
   bloggerid: MyString
-  title: MyString
-  content: MyText
-  blog_id: 
+  blogtitle: MyString
+  blogdescription: MyText
+  numberofposts: 1

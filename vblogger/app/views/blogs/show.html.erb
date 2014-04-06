@@ -1,0 +1,14 @@
+<h1><%= @blog.blogtitle %></h1>
+<p>
+	<%= @blog.blogdescription %>
+</p>
+<% @blogger = Blogger.find_by bloggerid: @blog.bloggerid %>
+<p>
+	Author: <%= @blogger.name %>
+</p>
+<p>
+	<%= link_to "View all posts", blog_posts_path(@blog) %>
+</p>
+<p>
+	<%= link_to "Add new post", new_blog_post_path(@blog) %>
+</p>

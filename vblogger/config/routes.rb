@@ -1,11 +1,16 @@
 Vblogger::Application.routes.draw do
   
 
+  get "blogs/myblogs"
   get "login/index"
   get "login/signup"
+  post "login/signupprocess"
   post "login/validate"
   post "application/clearsession"
-  resources :posts, :login
+  
+  resources :blogs do
+    resources :posts
+  end
 
   root 'login#index'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,2 +1,37 @@
-<h1>Login#signup</h1>
-<p>Find me in app/views/login/signup.html.erb</p>
+<h1>Signup</h1>
+
+<%= form_for @blogger, url: login_signupprocess_path , method: :post do |signupform| %>
+	<p>
+		<%= signupform.label :name, "Name" %>
+	</p>
+	<p>
+		<%= signupform.text_field :name %>
+	</p>
+	<p>
+		<%= signupform.label :email, "Email" %>
+	</p>
+	<p>
+		<%= signupform.text_field :email %>
+	</p><p>
+		<%= signupform.label :username, "Username" %>
+	</p>
+	<p>
+		<%= signupform.text_field :username %>
+	</p>
+	<p>
+		<%= signupform.label :password, "Password" %>
+	</p>
+	<p>
+		<%= signupform.password_field :password %>
+	</p>
+	<p>
+		<%= signupform.label :repassword, "Re-enter password" %>
+	</p>
+	<p>
+		<%= signupform.password_field :repassword %>
+	</p>
+	<p>
+		<%= signupform.submit "Signup" %>
+	</p>
+
+<% end %>

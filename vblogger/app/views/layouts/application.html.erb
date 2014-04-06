@@ -14,13 +14,13 @@
 
 <header>
 	
-	<% if !request.fullpath.to_s.include? "login/index" %>
+	<% if !request.fullpath.to_s.include? "login/" %>
 		<% if !session[:loggedblogger] %>
 			<script type="text/javascript">
 	    		window.location.href="/login/index"
 	  		</script>			
 		<% elsif session[:loggedblogger] %>	
-			<%= link_to "Home", posts_path %>
+			<%= link_to "Home", blogs_path %>
 			<% loggedblogger = session[:loggedblogger] %>
 			<%= loggedblogger[:name] %>		
 			<%= form_for Blogger.new, url: application_clearsession_path do |logoutform| %>
