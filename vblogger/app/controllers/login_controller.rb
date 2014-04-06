@@ -23,8 +23,8 @@ class LoginController < ApplicationController
 	end
 	def signupprocess
 		@latestblogger = Blogger.order("bloggerid DESC").first
-		@latestid = getLatestID(@latestblogger[:bloggerid])
-		@parameters = {:bloggerid => @latestid}
+		@latestbloggerid = getLatestBloggerID(@latestblogger[:bloggerid])
+		@parameters = {:bloggerid => @latestbloggerid}
 		@parameters.merge!(post_params)
 
 		@blogger = Blogger.new(@parameters)
@@ -41,7 +41,7 @@ class LoginController < ApplicationController
     		params.require(:blogger).permit(:name, :username, :email, :password)
   		end
 
-		def getLatestID(id)
+		def getLatestBloggerID(id)
 			latestiddate = id[4,8]
 			today = Time.now.strftime("%Y%m%d")
 

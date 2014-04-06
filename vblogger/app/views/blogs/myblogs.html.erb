@@ -1,2 +1,21 @@
-<h1>Blogs#myblogs</h1>
-<p>Find me in app/views/blogs/myblogs.html.erb</p>
+<h1>My Blogs</h1>
+
+<%= form_for Blogger.new, url: new_blog_path, method: :get do |newblogform| %>
+	<%= newblogform.submit "Create a new blog" %>
+<% end %>
+
+<% @blogs.each do |blog| %>
+	<p>
+		<h2>
+			<%= link_to blog.blogtitle, blog_path(blog) %>
+		</h2>
+	</p>
+	<p>
+		Description: <%= blog.blogdescription %>
+	</p>
+	<% @blogger = Blogger.find_by bloggerid: blog.bloggerid %>
+	<p>
+		Author: <%= @blogger.name %>
+	</p>
+	
+<% end %>

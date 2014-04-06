@@ -9,6 +9,9 @@
 <p>
 	<%= link_to "View all posts", blog_posts_path(@blog) %>
 </p>
+<% @loggedblogger = session["loggedblogger"] %>
+<% if @blogger.bloggerid == @loggedblogger.bloggerid %>
 <p>
 	<%= link_to "Add new post", new_blog_post_path(@blog) %>
 </p>
+<% end %>

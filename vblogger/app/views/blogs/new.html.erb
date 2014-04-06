@@ -1,2 +1,20 @@
-<h1>Blogs#new</h1>
-<p>Find me in app/views/blogs/new.html.erb</p>
+<h1>Create a new blog</h1>
+
+<%= form_for @blog do |newblogform| %>
+	<p>
+		<%= newblogform.label :blogtitle, "Blog Title" %>
+	</p>
+	<p>
+		<%= newblogform.text_field :blogtitle %>
+	</p>
+	<p>
+		<%= newblogform.label :blogdescription, "Description" %>
+	</p>
+	<p>
+		<%= newblogform.text_area :blogdescription %>
+	</p>
+	<p>
+		<%= newblogform.submit "Create" %>
+	</p>
+
+<% end  %>

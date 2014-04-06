@@ -24,5 +24,10 @@
 	</p>
 	<hr/>
 <% end %>
-
-<%= link_to "Add new post", new_blog_post_path(@blog) %>
+<% @blogger = Blogger.find_by bloggerid: @blog.bloggerid %>
+<% @loggedblogger = session["loggedblogger"] %>
+<% if @blogger.bloggerid == @loggedblogger.bloggerid %>
+<p>
+	<%= link_to "Add new post", new_blog_post_path(@blog) %>
+</p>
+<% end %>

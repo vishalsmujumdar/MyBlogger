@@ -21,6 +21,7 @@
 	  		</script>			
 		<% elsif session[:loggedblogger] %>	
 			<%= link_to "Home", blogs_path %>
+			<%= link_to "My Blogs", blogs_myblogs_path %>
 			<% loggedblogger = session[:loggedblogger] %>
 			<%= loggedblogger[:name] %>		
 			<%= form_for Blogger.new, url: application_clearsession_path do |logoutform| %>
