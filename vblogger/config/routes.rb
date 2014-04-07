@@ -7,7 +7,8 @@ Vblogger::Application.routes.draw do
   post "login/signupprocess"
   post "login/validate"
   post "application/clearsession"
-  
+  post "application/getsessionforjs"
+
   resources :blogs do
     resources :posts do
       resources :comments

@@ -7,3 +7,23 @@
 <p>
 	<%= @post.created_at %>
 </p>
+
+<h2>Comments</h2>
+<% @post.comments.each do |comment| %>
+
+  <% @commenter = Blogger.find_by bloggerid: comment.bloggerid%>
+  <p>
+  	<strong><%= @commenter.name %>:</strong>
+    <%= comment.commenttext %>
+  </p>
+<% end %>
+<% @loggedblogger = session[:loggedblogger] %>
+<strong><%= @loggedblogger.name %> -</strong>
+<%= form_for @comment, url: "/blogs/#{@blog.id}/posts/#{@post[:id]}/comments", method: :post do |f| %>
+  <p>
+    <%= f.text_area :commenttext %>
+  </p>
+  <p>
+    <%= f.submit "Add a comment" %>
+  </p>
+<% end %>

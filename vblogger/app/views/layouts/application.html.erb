@@ -6,20 +6,45 @@
 	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 	<%= csrf_meta_tags %>
 	<%= favicon_link_tag 'favicon.ico' %>
+	<%= include_gon(watch: true) %>
 	<script type="text/javascript">
-		
+		$(document).ready(function(){
+			$(window).blur(function(){
+				//$.ajax({
+	    		//	type: "POST",
+	    		//	url:"/application/getsessionforjs",
+	    		//})
+			});
+			$(window).focus(function(e) {
+	    		var currentURL = document.URL;
+	    		
+	    		//if (currentURL.indexOf("login/") == -1)
+	    		//{
+
+	    		gon.watch("sessionuser");	
+	   			console.log(performAjax.responseText);
+	    		//}
+	    	});
+
+		});
 	</script>
 </head>
 <body>
 
 <header>
-	
+	<% if request.fullpath.to_s.include? "login/" or request.fullpath.to_s.end_with? "/" %>
+		<% if session[:loggedblogger] %>	
+			<script type="text/javascript">
+	    		window.location.href="/blogs"
+	  		</script>
+	  	<% end %>
+	<% end %>
 	<% if !request.fullpath.to_s.include? "login/" %>
 		<% if !session[:loggedblogger] %>
 			<script type="text/javascript">
 	    		window.location.href="/login/index"
 	  		</script>			
-		<% elsif session[:loggedblogger] %>	
+		<% elsif session[:loggedblogger] %>
 			<%= link_to "Home", blogs_path %>
 			<%= link_to "My Blogs", blogs_myblogs_path %>
 			<% loggedblogger = session[:loggedblogger] %>

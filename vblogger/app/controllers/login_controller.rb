@@ -9,13 +9,17 @@ class LoginController < ApplicationController
 
 		#@flag = "empty"	if  @loggedblogger == nil
 		#@flag = @loggedblogger[:name] if @loggedblogger != nil
-
-		if @blogger[:username] == @data[:username] && @blogger[:password] == @data[:password]
-			session[:loggedblogger] = @blogger
-			redirect_to blogs_path, :notice => "Login successful"
+		if !@blogger
+			redirect_to login_index_path, :notice => "User not found."
 		else
-			redirect_to login_index_path, :notice => "Login unsuccessful"
+			if @blogger[:username] == @data[:username] && @blogger[:password] == @data[:password]
+				session[:loggedblogger] = @blogger
+				redirect_to blogs_path, :notice => "Login successful"
+			else
+				redirect_to login_index_path, :notice => "Login unsuccessful"
+			end
 		end
+
 	end
 
 	def signup

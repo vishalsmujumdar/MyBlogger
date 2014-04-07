@@ -13,7 +13,7 @@
  */
 @font-face {
 	font-family: ubuntu_font;
-	src: url('assets/fonts/Ubuntu_R.ttf');
+	src: url('../fonts/Ubuntu_R.ttf');
 }
 
 body {
