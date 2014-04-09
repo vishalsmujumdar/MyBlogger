@@ -4,25 +4,27 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   
   before_filter :set_gon
+  
 
   def clearsession
   	reset_session
   	set_gon
   	redirect_to login_index_path, :notice=>"Logout successful"
   end
+
   def getsessionforjs
-  	@loggedblogger = session[:loggedblogger]
-  	gon.watch.sessionuser =  @loggedblogger.bloggerid
-  	redirect_to :back
+	  	
   end
 
   def set_gon
-   	if session[:loggedblogger]
    		@loggedblogger = session[:loggedblogger]
-   		gon.watch.sessionuser = @loggedblogger.bloggerid
-   	else
-   		gon.watch.sessionuser = nil
-   	end
+   		gon.watch.sessionuser = @loggedblogger
+   		#gon.watch.test = 0
   end
+
+  private
+
+  	
+
 
 end

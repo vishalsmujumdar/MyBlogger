@@ -21,6 +21,8 @@ class LoginController < ApplicationController
 		end
 
 	end
+	
+
 
 	def signup
 		@blogger = Blogger.new

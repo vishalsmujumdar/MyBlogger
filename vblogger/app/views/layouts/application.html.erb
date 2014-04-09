@@ -8,30 +8,62 @@
 	<%= favicon_link_tag 'favicon.ico' %>
 	<%= include_gon(watch: true) %>
 	<script type="text/javascript">
+		var t=0;
 		$(document).ready(function(){
-			$(window).blur(function(){
-				//$.ajax({
-	    		//	type: "POST",
-	    		//	url:"/application/getsessionforjs",
-	    		//})
+			$('.username').mouseenter(function(){
+				$('.logout').show();
+				$('.username').addClass('loggingout');
+			}).mouseleave(function(){
+				$('.logout').mouseenter(function(){
+					$('.logout').show();
+					$('.username').addClass('loggingout');
+				}).mouseleave(function(){
+					$('.logout').hide();
+					$('.username').removeClass('loggingout');
+				});
+				$('.username').mouseover(function(){
+					$('.logout').show();
+					$('.username').addClass('loggingout');
+				});
+				$('.logout').hide();
+				$('.username').removeClass('loggingout');
 			});
-			$(window).focus(function(e) {
-	    		var currentURL = document.URL;
-	    		
-	    		//if (currentURL.indexOf("login/") == -1)
-	    		//{
-
-	    		gon.watch("sessionuser");	
-	   			console.log(performAjax.responseText);
-	    		//}
-	    	});
-
+			
+		});
+		$(window).focus(function(){
+				var form = $('#form_getsessionforjs');
+				var getsessionforjsURL = form.attr('action');
+				//alert(getsessionforjsURL);
+				//$.ajax({
+				//	type: "GET",
+				//	url: getsessionforjsURL,
+				//	success: function(data){
+				//		alert(1);
+				//	}
+				//});
+				t = gon.watch('sessionuser');
+				if(typeof t == 'object')
+					console.log('its an obj');
+				jQuery.globalEval(t);
+				console.log(t.readyState);
 		});
 	</script>
+	<style type="text/css">
+
+
+	</style>
 </head>
 <body>
 
-<header>
+<header id = "navbar">
+	<%= form_for Blogger.new, url: application_getsessionforjs_path, method: :post, :html => { :id => "form_getsessionforjs" } do |f| %>
+	<% end %>
+
+	<div id="logo-wrapper">
+		<div id="site-logo" class="logo-wrapper-item"></div>
+		<div id="site-title" class="logo-wrapper-item">V-Blogger</div>
+	</div>
+
 	<% if request.fullpath.to_s.include? "login/" or request.fullpath.to_s.end_with? "/" %>
 		<% if session[:loggedblogger] %>	
 			<script type="text/javascript">
@@ -45,23 +77,42 @@
 	    		window.location.href="/login/index"
 	  		</script>			
 		<% elsif session[:loggedblogger] %>
-			<%= link_to "Home", blogs_path %>
-			<%= link_to "My Blogs", blogs_myblogs_path %>
-			<% loggedblogger = session[:loggedblogger] %>
-			<%= loggedblogger[:name] %>		
-			<%= form_for Blogger.new, url: application_clearsession_path do |logoutform| %>
-				<%= logoutform.submit "Logout" %>
-			<% end %>
+			<div id = "navmenu">
+				<div class="navitem">
+					<%= link_to "Home", blogs_path %>
+				</div>
+				<div class="navitem">
+					<%= link_to "My Blogs", blogs_myblogs_path %>
+				</div>
+				<div class="navitem username">
+					<% loggedblogger = session[:loggedblogger] %>
+					<%= loggedblogger[:name] %>
+					<div class="logout" style="display: none">
+						<%= form_for Blogger.new, url: application_clearsession_path do |logoutform| %>
+							<%= logoutform.submit "Logout", :class => "btn-logout" %>
+						<% end %>
+					</div>
+				</div>	
+				
+			</div>
+			
+			
+			
+				
+			
 	  	<% end %>
 	<% end %>
 </header>
 
 
+<div class="main-container">
 	<% flash.each do |key,value| %>
 		<p><%= value %></p>
 	<% end %>
-	
-	<%= yield %>
+
+	<%= yield %>	
+</div>
+
 
 </body>
 </html>
